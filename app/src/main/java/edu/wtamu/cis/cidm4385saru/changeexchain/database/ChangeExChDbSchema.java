@@ -10,6 +10,7 @@ public class ChangeExChDbSchema {
             public static final String NAME = "timer";
 
                 public static final class Cols {
+                public static final String UUID = "uuid";
                 public static final String CURRENCYCODE = "currencyCode";
                 public static final String PRICE = "price";
                 public static final String THRESHOLD = "threshold";
