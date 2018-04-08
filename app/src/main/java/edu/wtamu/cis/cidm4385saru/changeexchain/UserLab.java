@@ -1,0 +1,106 @@
+package edu.wtamu.cis.cidm4385saru.changeexchain;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChDbSchema;
+import edu.wtamu.cis.cidm4385saru.changeexchain.database.PriceAlarmBaseHelper;
+import edu.wtamu.cis.cidm4385saru.changeexchain.database.PriceAlarmCursorWrapper;
+
+import static edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChDbSchema.UserTable.Cols.*;
+
+/**
+ * Created by sarup on 4/8/2018.
+ */
+
+public class UserLab {
+    private static UserLab sUserLab;
+    private Context mContext;
+    private SQLiteDatabase mDatabase;
+
+    public static UserLab get(Context context) {
+        if (sUserLab == null) {
+            sUserLab = new UserLab(context);
+        }
+        return sUserLab;
+    }
+
+    private UserLab(Context context) {
+        mContext = context.getApplicationContext();
+        mDatabase = new PriceAlarmBaseHelper(mContext)
+                .getWritableDatabase();
+
+    }
+
+    public void addPriceAlarm(PriceAlarm pA) {
+        ContentValues values = getContentValues(pA);
+        mDatabase.insert(ChangeExChDbSchema.PriceAlarmTable.NAME, null, values);
+    }
+
+    public List<PriceAlarm> getAlarms() {
+        List<PriceAlarm> priceAlarms = new ArrayList<>();
+        PriceAlarmCursorWrapper cursor = queryCrimes(null, null);
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                priceAlarms.add(cursor.getAlarm());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        return priceAlarms;
+    }
+
+    public PriceAlarm getCrime(UUID id) {
+        PriceAlarmCursorWrapper cursor = queryCrimes(
+                PriceAlarmTable.Cols.UUID + " = ?",
+                new String[]{id.toString()}
+        );
+        try {
+            if (cursor.getCount() == 0) {
+                return null;
+            }
+            cursor.moveToFirst();
+            return cursor.getAlarm();
+        } finally {
+            cursor.close();
+        }
+    }
+
+    public void updateAlarm(PriceAlarm priceAlarm) {
+        String uuidString = priceAlarm.getId().toString();
+        ContentValues values = getContentValues(priceAlarm);
+        mDatabase.update(PriceAlarmTable.NAME, values,
+                PriceAlarmTable.Cols.UUID + " = ?",
+                new String[]{uuidString});
+    }
+
+    private PriceAlarmCursorWrapper queryCrimes(String whereClause, String[] whereArgs) {
+        Cursor cursor = mDatabase.query(
+                PriceAlarmTable.NAME,
+                null, // Columns - null selects all columns
+                whereClause,
+                whereArgs,
+                null, // groupBy
+                null, // having
+                null  // orderBy
+        );
+        return new PriceAlarmCursorWrapper(cursor);
+    }
+
+    private static ContentValues getContentValues(PriceAlarm priceAlarm) {
+        ContentValues values = new ContentValues();
+        values.put(UUID, priceAlarm.getId().toString());
+        values.put(PRICE, priceAlarm.getPrice());
+        values.put(CURRENCYCODE, priceAlarm.getCurrencyCode());
+        values.put(THRESHOLD, priceAlarm.getThreshold());
+        return values;
+    }
+}
