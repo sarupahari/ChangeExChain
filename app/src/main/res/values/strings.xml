@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ChangeExChain</string>
+    <string name="chain">Chain</string>
 </resources>
