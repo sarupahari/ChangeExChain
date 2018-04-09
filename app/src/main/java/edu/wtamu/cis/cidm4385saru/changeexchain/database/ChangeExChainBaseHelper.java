@@ -10,11 +10,11 @@ import edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChDbSchema.*;
  */
 
 
-public class PriceAlarmBaseHelper extends SQLiteOpenHelper {
+public class ChangeExChainBaseHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;
     private static final String DATABASE_NAME = "changeExChain.db";
 
-    public PriceAlarmBaseHelper(Context context) {
+    public ChangeExChainBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
 

@@ -25,7 +25,6 @@ public class ChangeExChDbSchema {
                 public static final String UUID = "uuid";
                 public static final String USERNAME = "username";
                 public static final String PASSWORD = "password";
-                public static final String CURRENCYPREFERENCE = "currencyPreference";
             }
         }
 
@@ -36,7 +35,7 @@ public class ChangeExChDbSchema {
                 public static final String UUID = "uuid";
                 public static final String USERNAME = "username";
                 public static final String TIMEFORMAT = "timeFormat";
-                public static final String PRIORITYCURRENCYPREFERENCE = "priorityCurrencyPreference";
+                public static final String CURRENCYPREFERENCE = "currencyPreference";
                 public static final String COLORMODE = "colorMode";
             }
         }

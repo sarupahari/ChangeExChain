@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 import edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChDbSchema;
-import edu.wtamu.cis.cidm4385saru.changeexchain.database.PriceAlarmBaseHelper;
+import edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChainBaseHelper;
 import edu.wtamu.cis.cidm4385saru.changeexchain.database.PriceAlarmCursorWrapper;
 import edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChDbSchema.PriceAlarmTable;
 
@@ -35,7 +35,7 @@ public class PriceAlarmLab {
 
     private PriceAlarmLab(Context context) {
         mContext = context.getApplicationContext();
-        mDatabase = new PriceAlarmBaseHelper(mContext)
+        mDatabase = new ChangeExChainBaseHelper(mContext)
                 .getWritableDatabase();
 
     }
