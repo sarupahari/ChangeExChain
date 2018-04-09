@@ -47,7 +47,7 @@ public class PriceAlarmLab {
 
     public List<PriceAlarm> getAlarms() {
         List<PriceAlarm> priceAlarms = new ArrayList<>();
-        PriceAlarmCursorWrapper cursor = queryCrimes(null, null);
+        PriceAlarmCursorWrapper cursor = queryPriceAlarm(null, null);
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -60,8 +60,8 @@ public class PriceAlarmLab {
         return priceAlarms;
     }
 
-    public PriceAlarm getCrime(UUID id) {
-        PriceAlarmCursorWrapper cursor = queryCrimes(
+    public PriceAlarm getPriceAlarm(UUID id) {
+        PriceAlarmCursorWrapper cursor = queryPriceAlarm(
                 PriceAlarmTable.Cols.UUID + " = ?",
                 new String[]{id.toString()}
         );
@@ -84,7 +84,7 @@ public class PriceAlarmLab {
                 new String[]{uuidString});
     }
 
-    private PriceAlarmCursorWrapper queryCrimes(String whereClause, String[] whereArgs) {
+    private PriceAlarmCursorWrapper queryPriceAlarm(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
                 PriceAlarmTable.NAME,
                 null, // Columns - null selects all columns

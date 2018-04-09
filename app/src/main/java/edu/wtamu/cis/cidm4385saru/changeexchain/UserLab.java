@@ -10,8 +10,9 @@ import java.util.List;
 import java.util.UUID;
 
 import edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChDbSchema;
-import edu.wtamu.cis.cidm4385saru.changeexchain.database.PriceAlarmBaseHelper;
-import edu.wtamu.cis.cidm4385saru.changeexchain.database.PriceAlarmCursorWrapper;
+import edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChainBaseHelper;
+import edu.wtamu.cis.cidm4385saru.changeexchain.database.UserCursorWrapper;
+import edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChDbSchema.UserTable;
 
 import static edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChDbSchema.UserTable.Cols.*;
 
@@ -33,34 +34,34 @@ public class UserLab {
 
     private UserLab(Context context) {
         mContext = context.getApplicationContext();
-        mDatabase = new PriceAlarmBaseHelper(mContext)
+        mDatabase = new ChangeExChainBaseHelper(mContext)
                 .getWritableDatabase();
 
     }
 
-    public void addPriceAlarm(PriceAlarm pA) {
-        ContentValues values = getContentValues(pA);
-        mDatabase.insert(ChangeExChDbSchema.PriceAlarmTable.NAME, null, values);
+    public void addUser (User u) {
+        ContentValues values = getContentValues(u);
+        mDatabase.insert(ChangeExChDbSchema.UserTable.NAME, null, values);
     }
 
-    public List<PriceAlarm> getAlarms() {
-        List<PriceAlarm> priceAlarms = new ArrayList<>();
-        PriceAlarmCursorWrapper cursor = queryCrimes(null, null);
-        try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                priceAlarms.add(cursor.getAlarm());
-                cursor.moveToNext();
-            }
-        } finally {
-            cursor.close();
-        }
-        return priceAlarms;
-    }
+//    public List<User> getUsers() {
+//        List<User> users = new ArrayList<>();
+//        UserCursorWrapper cursor = queryUsers(null, null);
+//        try {
+//            cursor.moveToFirst();
+//            while (!cursor.isAfterLast()) {
+//                users.add(cursor.getUser());
+//                cursor.moveToNext();
+//            }
+//        } finally {
+//            cursor.close();
+//        }
+//        return users;
+//    }
 
-    public PriceAlarm getCrime(UUID id) {
-        PriceAlarmCursorWrapper cursor = queryCrimes(
-                PriceAlarmTable.Cols.UUID + " = ?",
+    public User getUser(UUID id) {
+        UserCursorWrapper cursor = queryUsers(
+                UserTable.Cols.UUID + " = ?",
                 new String[]{id.toString()}
         );
         try {
@@ -68,23 +69,23 @@ public class UserLab {
                 return null;
             }
             cursor.moveToFirst();
-            return cursor.getAlarm();
+            return cursor.getUser();
         } finally {
             cursor.close();
         }
     }
 
-    public void updateAlarm(PriceAlarm priceAlarm) {
-        String uuidString = priceAlarm.getId().toString();
-        ContentValues values = getContentValues(priceAlarm);
-        mDatabase.update(PriceAlarmTable.NAME, values,
-                PriceAlarmTable.Cols.UUID + " = ?",
+    public void updateUser(User user) {
+        String uuidString = user.getId().toString();
+        ContentValues values = getContentValues(user);
+        mDatabase.update(UserTable.NAME, values,
+                UserTable.Cols.UUID + " = ?",
                 new String[]{uuidString});
     }
 
-    private PriceAlarmCursorWrapper queryCrimes(String whereClause, String[] whereArgs) {
+    private UserCursorWrapper queryUsers(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
-                PriceAlarmTable.NAME,
+                UserTable.NAME,
                 null, // Columns - null selects all columns
                 whereClause,
                 whereArgs,
@@ -92,15 +93,14 @@ public class UserLab {
                 null, // having
                 null  // orderBy
         );
-        return new PriceAlarmCursorWrapper(cursor);
+        return new UserCursorWrapper(cursor);
     }
 
-    private static ContentValues getContentValues(PriceAlarm priceAlarm) {
+    private static ContentValues getContentValues(User user) {
         ContentValues values = new ContentValues();
-        values.put(UUID, priceAlarm.getId().toString());
-        values.put(PRICE, priceAlarm.getPrice());
-        values.put(CURRENCYCODE, priceAlarm.getCurrencyCode());
-        values.put(THRESHOLD, priceAlarm.getThreshold());
+        values.put(UUID, user.getId().toString());
+        values.put(USERNAME, user.getUsername());
+        values.put(PASSWORD, user.getPassword());
         return values;
     }
 }

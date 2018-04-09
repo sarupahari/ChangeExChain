@@ -19,6 +19,10 @@ public class User {
        mId = id;
    }
 
+    public UUID getId() {
+        return mId;
+    }
+
     public String getUsername() {
         return mUsername;
     }
