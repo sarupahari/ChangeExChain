@@ -15,6 +15,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.util.Currency;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -29,7 +31,7 @@ public class CoinDeskApi{
         String currentPrice = "";
 
         try{
-            String url = Uri.parse("https://api.coindesk.com/v1/bpi/currentprice/" + currencyCode + ".json").toString();
+            String url = Uri.parse(mCurrentPriceBaseUrl + currencyCode + ".json").toString();
             String jsonString = getUrlString(url);
             JSONObject jsonBody = new JSONObject(jsonString);
             currentPrice = parseJson(jsonBody, currencyCode);
@@ -74,8 +76,12 @@ public class CoinDeskApi{
     public String parseJson(JSONObject jsonBody, String currencyCode) throws IOException, JSONException{
         JSONObject bpi = jsonBody.getJSONObject("bpi");
         JSONObject priceJson = bpi.getJSONObject(currencyCode);
-        String currentPrice = priceJson.getString("rate");
+        double currentPriceDouble = priceJson.getDouble("rate_float");
+        DecimalFormat formatter = new DecimalFormat("#,###.00");
+        String currentPrice = formatter.format(currentPriceDouble);
+        Currency curr = Currency.getInstance(currencyCode);
+        String symbol = curr.getSymbol();
+        return curr.getSymbol() + " " + currentPrice;
 
-        return currentPrice;
     }
 }
