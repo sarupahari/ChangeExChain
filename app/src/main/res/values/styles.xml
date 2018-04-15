@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#a567df</item>
-        <item name="colorPrimaryDark">#ffff00</item>
+        <item name="colorPrimaryDark">#5a0da3</item>
         <item name="colorAccent">#50abff</item>
 
     </style>

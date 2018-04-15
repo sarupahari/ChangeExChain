@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,23 +8,10 @@
     tools:context="edu.wtamu.cis.cidm4385saru.changeexchain.MainActivity">
 
 
-    <TextView
-        android:layout_width="310dp"
-        android:layout_height="176dp"
-        android:layout_centerHorizontal="true"
-        android:background="#b58bbf"
-        android:gravity="center"
-        android:textColor="#ffff00"
-        android:textSize="@android:dimen/notification_large_icon_height"
-
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.047"
-        tools:text="999.00" />
-
-
-
-</android.support.constraint.ConstraintLayout>
+    <fragment
+        android:id="@+id/fragment"
+        android:name="edu.wtamu.cis.cidm4385saru.changeexchain.Fragments.CurrentPriceFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+</LinearLayout>
