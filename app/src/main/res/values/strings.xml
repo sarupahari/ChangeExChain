@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">ChangeExChain</string>
     <string name="chain">Chain</string>
+    <string name="time_format">Time Format</string>
+    <string name="currency">Currency</string>
+    <string name="theme">Theme</string>
+    <string name="theme1">Default</string>
+    <string name="theme2">Dark</string>
 </resources>
