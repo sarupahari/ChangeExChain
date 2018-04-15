@@ -20,6 +20,7 @@ public class CurrentPriceFragment extends Fragment {
 
     View mMainView;
     private String mCurrentCurrencyCode;
+    private String mCurrentPrice;
     private TextView mCurrentPriceView;
     private TextView mCurrentCurrencyCodeView;
     private static final String TAG = "CurrentPriceFragment";
@@ -28,6 +29,7 @@ public class CurrentPriceFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        mCurrentCurrencyCode = "USD";
         new FetchPriceTask().execute();
     }
 
@@ -37,23 +39,23 @@ public class CurrentPriceFragment extends Fragment {
         mMainView = inflater.inflate(R.layout.current_price_fragment_layout, container, false);
         mCurrentCurrencyCodeView = mMainView.findViewById(R.id.current_currency_code);
         mCurrentPriceView = mMainView.findViewById(R.id.current_price);
+        mCurrentPrice = "";
 
-        mCurrentCurrencyCode = "USD";
-        mCurrentPriceView.setText("");
+        mCurrentPriceView.setText(mCurrentPrice);
         mCurrentCurrencyCodeView.setText(mCurrentCurrencyCode);
         return mMainView;
     }
 
-    private class FetchPriceTask extends AsyncTask<Void, Void, Void>{
+    private class FetchPriceTask extends AsyncTask<Void, Void, String>{
         @Override
-        protected Void doInBackground(Void...params){
-            try{
-                String result = CoinDeskApi.getCurrentPrice(mCurrentCurrencyCode);
-                Log.i(TAG, "Fetched current price " + result);
-            }catch(IOException e){
-                Log.e(TAG, "Failed to fetch current price");
-            }
-            return null;
+        protected String doInBackground(Void...params){
+            return new CoinDeskApi().fetchCurrentPrice(mCurrentCurrencyCode);
+        }
+
+        @Override
+        protected void onPostExecute(String currentPrice){
+            mCurrentPrice = currentPrice;
+            mCurrentPriceView.setText(mCurrentPrice);
         }
     }
 }
