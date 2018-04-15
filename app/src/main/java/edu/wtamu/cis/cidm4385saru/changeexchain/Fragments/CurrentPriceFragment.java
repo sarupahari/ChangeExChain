@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import edu.wtamu.cis.cidm4385saru.changeexchain.R;
 import edu.wtamu.cis.cidm4385saru.changeexchain.RESTApiCalls.CoinDeskApi;
@@ -30,7 +32,26 @@ public class CurrentPriceFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         mCurrentCurrencyCode = "USD";
-        new FetchPriceTask().execute();
+
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+        TimerTask doAsynchronousTask = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    public void run() {
+                        try {
+                            fetchPriceTask performBackgroundTask = new fetchPriceTask();
+                            // PerformBackgroundTask this class is the class that extends AsynchTask
+                            performBackgroundTask.execute();
+                        } catch (Exception e) {
+                            // TODO Auto-generated catch block
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(doAsynchronousTask, 0, 6 * 1000); //execute in every 50000 ms
     }
 
     @Nullable
@@ -46,7 +67,7 @@ public class CurrentPriceFragment extends Fragment {
         return mMainView;
     }
 
-    private class FetchPriceTask extends AsyncTask<Void, Void, String>{
+    private class fetchPriceTask extends AsyncTask<Void, Void, String>{
         @Override
         protected String doInBackground(Void...params){
             return new CoinDeskApi().fetchCurrentPrice(mCurrentCurrencyCode);
