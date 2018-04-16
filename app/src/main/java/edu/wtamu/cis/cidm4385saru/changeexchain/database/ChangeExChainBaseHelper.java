@@ -24,15 +24,14 @@ public class ChangeExChainBaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + UserTable.NAME + "(" +
                 " _id integer primary key autoincrement, " +
                 UserTable.Cols.USERNAME + ", " +
-                UserTable.Cols.PASSWORD+ ", " +
-                UserTable.Cols.CURRENCYPREFERENCE +
+                UserTable.Cols.PASSWORD+
                 ")"
         );
 
         db.execSQL("create table " + UserSettingsTable.NAME + "(" +
                 " _id integer primary key autoincrement, " +
                 UserSettingsTable.Cols.TIMEFORMAT + ", " +
-                UserSettingsTable.Cols.PRIORITYCURRENCYPREFERENCE + ", " +
+                UserSettingsTable.Cols.CURRENCYPREFERENCE + ", " +
                 UserSettingsTable.Cols.COLORMODE + ", " +
                 "FOREIGN KEY ("+ UserSettingsTable.Cols.USERNAME +") REFERENCES "+ UserTable.NAME +"(username)" +
                 ")"

@@ -1,26 +1,28 @@
 package edu.wtamu.cis.cidm4385saru.changeexchain;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmetManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmenById(R.id.fragmnet_container);
+     findViewById(R.id.bRegister).setOnClickListener(this);
 
-        if (fragment == null)
-        {
-            fragment = new CrimeFragment();
-            fm.beginTransaction()
-                    .add(R.id.fragment_container, fragment)
-                    .commit();
+    }
+
+    @Override
+    public void onClick (View view)
+    {
+        switch(view.getId()){
+            case R.id.bRegister:
+                startActivity(new Intent(this, RegisterActivity.class));
         }
-
     }
 }

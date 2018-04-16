@@ -5,6 +5,7 @@
 
     <Switch
         style="?android:listSeparatorTextViewStyle"
+        android:id="@+id/exchain_timeformat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/time_format"/>
