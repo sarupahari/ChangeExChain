@@ -24,8 +24,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText exEmail, exPassword;
-    ProgressBar progressBar;
+    private EditText exEmail, exPassword;
+    private ProgressBar progressBar;
 
     private FirebaseAuth mAuth;
 
@@ -34,12 +34,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        mAuth = FirebaseAuth.getInstance();
+
         exEmail = (EditText) findViewById(R.id.exEmail);
         exPassword = (EditText) findViewById(R.id.exPassword);
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
-
-        mAuth = FirebaseAuth.getInstance();
-
 
         findViewById(R.id.exButtonRegister).setOnClickListener(this);
     }
@@ -74,13 +73,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progressBar.setVisibility(View.VISIBLE);
 
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>(){
+                .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>(){
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task){
+                        Toast.makeText(RegisterActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
-                        if(task.isSuccessful()){
-                            Toast.makeText(getApplicationContext(), "User Registered Successful", Toast.LENGTH_SHORT).show();
+                        if(!task.isSuccessful()){
+                           Toast.makeText(RegisterActivity.this, "Authentication failed." + task.getException(),Toast.LENGTH_SHORT).show();
                         }
+
 
                     }
                 });
