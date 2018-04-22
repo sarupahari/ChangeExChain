@@ -1,5 +1,6 @@
 package edu.wtamu.cis.cidm4385saru.changeexchain;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,20 +13,23 @@ import android.widget.EditText;
 
 public class LoginActivity  extends AppCompatActivity implements View.OnClickListener{
 
-    Button exLogin;
-    EditText exEmail, exPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        exEmail = (EditText) findViewById(R.id.exEmail);
-        exPassword = (EditText) findViewById(R.id.exEmail);
+        findViewById(R.id.exTextViewRegister).setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View view) {
 
+        switch(view.getId()){
+            case R.id.exTextViewRegister:
+                startActivity(new Intent(this, RegisterActivity.class));
+                break;
+        }
     }
 }
