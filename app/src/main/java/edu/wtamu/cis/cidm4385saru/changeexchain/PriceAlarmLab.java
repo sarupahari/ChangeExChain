@@ -47,7 +47,22 @@ public class PriceAlarmLab {
 
     public List<PriceAlarm> getAlarms() {
         List<PriceAlarm> priceAlarms = new ArrayList<>();
-        PriceAlarmCursorWrapper cursor = queryPriceAlarm(null, null);
+
+        for(int ii = 0; ii < 10; ii++)
+        {
+            PriceAlarm p = new PriceAlarm();
+            p.mPrice = ii;
+
+            if((ii % 2) == 0){
+                p.mThreshold = "Above";
+            }else{
+                p.mThreshold = "Below";
+            }
+
+            priceAlarms.add(p);
+        }
+
+        /*PriceAlarmCursorWrapper cursor = queryPriceAlarm(null, null);
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -56,7 +71,7 @@ public class PriceAlarmLab {
             }
         } finally {
             cursor.close();
-        }
+        }*/
         return priceAlarms;
     }
 
