@@ -81,7 +81,8 @@ public class CoinDeskApi{
         String currentPrice = formatter.format(currentPriceDouble);
         Currency curr = Currency.getInstance(currencyCode);
         String symbol = curr.getSymbol();
-        return curr.getSymbol() + " " + currentPrice;
+        String result = symbol + currentPrice;
+        return result;
 
     }
 }

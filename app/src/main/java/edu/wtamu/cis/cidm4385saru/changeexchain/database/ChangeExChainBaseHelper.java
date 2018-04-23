@@ -32,8 +32,7 @@ public class ChangeExChainBaseHelper extends SQLiteOpenHelper {
                 " _id integer primary key autoincrement, " +
                 UserSettingsTable.Cols.TIMEFORMAT + ", " +
                 UserSettingsTable.Cols.CURRENCYPREFERENCE + ", " +
-                UserSettingsTable.Cols.COLORMODE + ", " +
-                "FOREIGN KEY ("+ UserSettingsTable.Cols.USERNAME +") REFERENCES "+ UserTable.NAME +"(username)" +
+                UserSettingsTable.Cols.COLORMODE +
                 ")"
         );
 
