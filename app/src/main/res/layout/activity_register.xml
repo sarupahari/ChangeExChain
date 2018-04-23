@@ -74,7 +74,7 @@
                 android:id="@+id/exTextViewLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
+                android:padding="10dp"
                 android:textSize="20dp"
                 android:text="Already have an account? Login"
                 android:textAlignment="center"
@@ -82,13 +82,15 @@
                 android:textColor="@color/colorAccent" />
 
             <TextView
+                android:id="@+id/exCreditCoinDesk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="5dp"
+                android:textSize="18dp"
                 android:text="@string/coindesk_link"
                 android:textAlignment="center"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textColor="@color/colorAccent" />
+                android:textColorLink="@color/colorPrimaryDark" />
 
 
         </LinearLayout>
