@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "222798600697",
+    "firebase_url": "https://changeexchain.firebaseio.com",
+    "project_id": "changeexchain",
+    "storage_bucket": "changeexchain.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:222798600697:android:21a59d3455834ed5",
+        "android_client_info": {
+          "package_name": "edu.wtamu.cis.cidm4385saru.changeexchain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "222798600697-i2oc4ih9hrjnfuue3krf5qao8ckdhof4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.wtamu.cis.cidm4385saru.changeexchain",
+            "certificate_hash": "3d40bd0cc4d6cb1800716239f96d415743a4c861"
+          }
+        },
+        {
+          "client_id": "222798600697-7r2vbr7j00rg4fn9tvf8asu5nqg7pm3p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqrIQvbQAeJWdw7vkXUliqr-jcc5ZF6J8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "222798600697-7r2vbr7j00rg4fn9tvf8asu5nqg7pm3p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
