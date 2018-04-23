@@ -24,7 +24,7 @@ public class ChangeExChainBaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + UserTable.NAME + "(" +
                 " _id integer primary key autoincrement, " +
                 UserTable.Cols.USERNAME + ", " +
-                UserTable.Cols.PASSWORD+
+                UserTable.Cols.PASSWORD +
                 ")"
         );
 
@@ -41,8 +41,7 @@ public class ChangeExChainBaseHelper extends SQLiteOpenHelper {
                 " _id integer primary key autoincrement, " +
                 PriceAlarmTable.Cols.CURRENCYCODE + ", " +
                 PriceAlarmTable.Cols.PRICE + ", " +
-                PriceAlarmTable.Cols.THRESHOLD + ", " +
-                "FOREIGN KEY ("+ PriceAlarmTable.Cols.USERNAME +") REFERENCES "+ UserTable.NAME +"(username)" +
+                PriceAlarmTable.Cols.THRESHOLD +
                 ")"
         );
 

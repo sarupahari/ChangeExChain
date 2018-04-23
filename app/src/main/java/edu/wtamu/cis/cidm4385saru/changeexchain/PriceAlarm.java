@@ -5,10 +5,11 @@ import java.util.UUID;
 
 public class PriceAlarm {
 
+    //TODO Change back to private
     private UUID mId;
-    private String mCurrencyCode;
-    private int mPrice;
-    private String mThreshold;
+    public String mCurrencyCode;
+    public int mPrice;
+    public String mThreshold;
 
     public PriceAlarm() {
         this(UUID.randomUUID());
