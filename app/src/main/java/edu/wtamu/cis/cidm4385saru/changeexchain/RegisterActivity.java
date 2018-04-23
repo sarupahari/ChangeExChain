@@ -41,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
         findViewById(R.id.exButtonRegister).setOnClickListener(this);
+        findViewById(R.id.exTextViewLogin).setOnClickListener(this);
     }
 
     private void registerUser() {
@@ -78,7 +79,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     public void onComplete(@NonNull Task<AuthResult> task){
                         progressBar.setVisibility(View.GONE);
                         if(task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
                         }else {
                           if(task.getException() instanceof FirebaseAuthException){
                               Toast.makeText(getApplicationContext(),"Email already exist", Toast.LENGTH_SHORT).show();
