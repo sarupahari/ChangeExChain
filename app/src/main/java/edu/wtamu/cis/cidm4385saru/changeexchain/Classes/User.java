@@ -1,4 +1,4 @@
-package edu.wtamu.cis.cidm4385saru.changeexchain;
+package edu.wtamu.cis.cidm4385saru.changeexchain.Classes;
 
 import java.util.UUID;
 

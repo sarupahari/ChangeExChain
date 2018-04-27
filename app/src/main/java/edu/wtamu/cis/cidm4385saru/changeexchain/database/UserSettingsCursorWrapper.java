@@ -5,7 +5,7 @@ import android.database.CursorWrapper;
 
 import java.util.UUID;
 
-import edu.wtamu.cis.cidm4385saru.changeexchain.UserSetting;
+import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.UserSetting;
 
 public class UserSettingsCursorWrapper extends CursorWrapper{
 
@@ -20,8 +20,7 @@ public class UserSettingsCursorWrapper extends CursorWrapper{
         String currencyPreference = getString(getColumnIndex(ChangeExChDbSchema.UserSettingsTable.Cols.CURRENCYPREFERENCE));
         String colorMode = getString(getColumnIndex(ChangeExChDbSchema.UserSettingsTable.Cols.COLORMODE));
 
-        UserSetting userSetting = new UserSetting(UUID.fromString(uuidString));
-        userSetting.setUserName(username);
+        UserSetting userSetting = new UserSetting();
         userSetting.setTimeFormat(timeFormat);
         userSetting.setCurrencyPreference(currencyPreference);
         userSetting.setColorMode(colorMode);

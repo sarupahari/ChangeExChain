@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="edu.wtamu.cis.cidm4385saru.changeexchain.RegisterActivity">
+    tools:context="edu.wtamu.cis.cidm4385saru.changeexchain.Activities.RegisterActivity">
 
 
     <RelativeLayout

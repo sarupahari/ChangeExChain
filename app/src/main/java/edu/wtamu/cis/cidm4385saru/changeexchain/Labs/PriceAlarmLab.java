@@ -1,4 +1,4 @@
-package edu.wtamu.cis.cidm4385saru.changeexchain;
+package edu.wtamu.cis.cidm4385saru.changeexchain.Labs;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.PriceAlarm;
 import edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChDbSchema;
 import edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChainBaseHelper;
 import edu.wtamu.cis.cidm4385saru.changeexchain.database.PriceAlarmCursorWrapper;
@@ -47,20 +48,6 @@ public class PriceAlarmLab {
 
     public List<PriceAlarm> getAlarms() {
         List<PriceAlarm> priceAlarms = new ArrayList<>();
-
-        for(int ii = 0; ii < 10; ii++)
-        {
-            PriceAlarm p = new PriceAlarm();
-            p.mPrice = ii;
-
-            if((ii % 2) == 0){
-                p.mThreshold = "Above";
-            }else{
-                p.mThreshold = "Below";
-            }
-
-            priceAlarms.add(p);
-        }
 
         /*PriceAlarmCursorWrapper cursor = queryPriceAlarm(null, null);
         try {

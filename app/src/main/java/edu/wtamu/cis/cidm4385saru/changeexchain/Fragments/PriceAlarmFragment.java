@@ -1,13 +1,15 @@
-package edu.wtamu.cis.cidm4385saru.changeexchain;
+package edu.wtamu.cis.cidm4385saru.changeexchain.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.PriceAlarm;
+import edu.wtamu.cis.cidm4385saru.changeexchain.R;
 
 /**
  * Created by sarup on 4/15/2018.

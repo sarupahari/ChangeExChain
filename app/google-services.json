@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "222798600697-80cd3k4k8l0vlktmiade6jo42ash80fa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.wtamu.cis.cidm4385saru.changeexchain",
+            "certificate_hash": "d8757451c5ddc93b4eb5e3d5cff5025b57c5013e"
+          }
+        },
+        {
+          "client_id": "222798600697-fbnplhv2j1o5ijget3i4oap7seb1lthh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.wtamu.cis.cidm4385saru.changeexchain",
+            "certificate_hash": "b59fcf54f19c2dce4faa69d8a187efbfd2428a92"
+          }
+        },
+        {
           "client_id": "222798600697-i2oc4ih9hrjnfuue3krf5qao8ckdhof4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

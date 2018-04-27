@@ -1,4 +1,4 @@
-package edu.wtamu.cis.cidm4385saru.changeexchain;
+package edu.wtamu.cis.cidm4385saru.changeexchain.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -17,6 +16,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.PriceAlarm;
+import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.UserSetting;
+import edu.wtamu.cis.cidm4385saru.changeexchain.R;
 
 /**
  * Created by sarup on 4/15/2018.
@@ -27,6 +36,7 @@ public class LoginActivity  extends AppCompatActivity implements View.OnClickLis
     private EditText exEmail, exPassword;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
+    private DatabaseReference mDB;
 
 
     @Override
@@ -37,6 +47,7 @@ public class LoginActivity  extends AppCompatActivity implements View.OnClickLis
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
         mAuth = FirebaseAuth.getInstance();
+        mDB = FirebaseDatabase.getInstance().getReference();
 
         exEmail = (EditText) findViewById(R.id.exEmail);
         exPassword = (EditText) findViewById(R.id.exPassword);
@@ -85,6 +96,45 @@ public class LoginActivity  extends AppCompatActivity implements View.OnClickLis
                 }else{
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        final String uuid = user.getUid();
+
+        DatabaseReference userSettings = mDB.child("UserSettings");
+        userSettings.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild(uuid)){
+
+                }else{
+                    mDB.child("UserSettings").child(uuid).setValue(UserSetting.createDefault());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference userAlarms = mDB.child("PriceAlarms");
+        userAlarms.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild(uuid)){
+
+                }else{
+                    PriceAlarm pa = PriceAlarm.createDefault();
+
+                    mDB.child("PriceAlarm").child(uuid).child(pa.getId().toString()).setValue(pa);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }

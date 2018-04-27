@@ -1,14 +1,13 @@
-package edu.wtamu.cis.cidm4385saru.changeexchain;
+package edu.wtamu.cis.cidm4385saru.changeexchain.Labs;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
+import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.User;
 import edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChDbSchema;
 import edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChainBaseHelper;
 import edu.wtamu.cis.cidm4385saru.changeexchain.database.UserCursorWrapper;
