@@ -1,7 +1,8 @@
-package edu.wtamu.cis.cidm4385saru.changeexchain;
+package edu.wtamu.cis.cidm4385saru.changeexchain.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
@@ -15,10 +16,17 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.PriceAlarm;
+import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.UserSetting;
+import edu.wtamu.cis.cidm4385saru.changeexchain.R;
 
 /**
  * Created by sarup on 4/15/2018.
@@ -26,23 +34,27 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private String KEY = "RegisterActivity";
+
     private EditText exEmail, exPassword;
     private ProgressBar progressBar;
 
     private FirebaseAuth mAuth;
+    private DatabaseReference mDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        TextView text = (TextView) findViewById(R.id.exCreditCoinDesk);
+        TextView text = findViewById(R.id.exCreditCoinDesk);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
         mAuth = FirebaseAuth.getInstance();
+        mDB = FirebaseDatabase.getInstance().getReference();
 
-        exEmail = (EditText) findViewById(R.id.exEmail);
-        exPassword = (EditText) findViewById(R.id.exPassword);
-        progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        exEmail = findViewById(R.id.exEmail);
+        exPassword = findViewById(R.id.exPassword);
+        progressBar = findViewById(R.id.progressbar);
 
         findViewById(R.id.exButtonRegister).setOnClickListener(this);
         findViewById(R.id.exTextViewLogin).setOnClickListener(this);
@@ -95,6 +107,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         }
                     }
                 });
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        mDB.child("UserSettings").child(user.getUid()).setValue(UserSetting.createDefault());
+        mDB.child("PriceAlarms").child("Default").setValue(PriceAlarm.createDefault());
     }
 
     @Override

@@ -6,7 +6,7 @@ import android.database.CursorWrapper;
 
 import java.util.UUID;
 import edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChDbSchema.UserTable;
-import edu.wtamu.cis.cidm4385saru.changeexchain.User;
+import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.User;
 
 /**
  * Created by sarup on 4/8/2018.

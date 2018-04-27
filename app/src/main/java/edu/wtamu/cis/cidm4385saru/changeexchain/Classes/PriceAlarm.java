@@ -1,4 +1,4 @@
-package edu.wtamu.cis.cidm4385saru.changeexchain;
+package edu.wtamu.cis.cidm4385saru.changeexchain.Classes;
 
 import java.util.Date;
 import java.util.UUID;
@@ -7,9 +7,12 @@ public class PriceAlarm {
 
     //TODO Change back to private
     private UUID mId;
-    public String mCurrencyCode;
-    public int mPrice;
-    public String mThreshold;
+    private String mCurrencyCode;
+    private int mPrice;
+    private String mThreshold;
+
+
+    private boolean mEnabled;
 
     public PriceAlarm() {
         this(UUID.randomUUID());
@@ -45,6 +48,25 @@ public class PriceAlarm {
 
     public void setThreshold(String mThreshold) {
         this.mThreshold = mThreshold;
+    }
+
+    public boolean isEnabled() {
+        return mEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        mEnabled = enabled;
+    }
+
+
+    public static PriceAlarm createDefault(){
+        PriceAlarm pa = new PriceAlarm();
+
+        pa.setCurrencyCode("local");
+        pa.setPrice(0);
+        pa.setEnabled(false);
+
+        return pa;
     }
 
 }

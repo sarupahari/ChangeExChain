@@ -3,10 +3,9 @@ package edu.wtamu.cis.cidm4385saru.changeexchain.database;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 
-import java.util.Date;
 import java.util.UUID;
 import edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChDbSchema.PriceAlarmTable;
-import edu.wtamu.cis.cidm4385saru.changeexchain.PriceAlarm;
+import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.PriceAlarm;
 
 public class PriceAlarmCursorWrapper extends CursorWrapper {
 

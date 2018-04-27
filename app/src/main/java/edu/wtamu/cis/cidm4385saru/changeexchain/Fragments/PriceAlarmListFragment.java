@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import edu.wtamu.cis.cidm4385saru.changeexchain.PriceAlarm;
-import edu.wtamu.cis.cidm4385saru.changeexchain.PriceAlarmLab;
+import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.PriceAlarm;
+import edu.wtamu.cis.cidm4385saru.changeexchain.Labs.PriceAlarmLab;
 import edu.wtamu.cis.cidm4385saru.changeexchain.R;
 
 public class PriceAlarmListFragment extends Fragment {

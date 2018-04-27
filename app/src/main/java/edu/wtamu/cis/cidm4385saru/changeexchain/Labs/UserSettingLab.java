@@ -1,4 +1,4 @@
-package edu.wtamu.cis.cidm4385saru.changeexchain;
+package edu.wtamu.cis.cidm4385saru.changeexchain.Labs;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.UUID;
 
+import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.UserSetting;
 import edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChDbSchema;
 import edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChainBaseHelper;
 import edu.wtamu.cis.cidm4385saru.changeexchain.database.UserSettingsCursorWrapper;
@@ -58,14 +59,6 @@ public class UserSettingLab {
         }
     }
 
-    public void updateUserSetting(UserSetting userSetting) {
-        String uuidString = userSetting.getId().toString();
-        ContentValues values = getContentValues(userSetting);
-        mDatabase.update(ChangeExChDbSchema.UserSettingsTable.NAME, values,
-                ChangeExChDbSchema.UserSettingsTable.Cols.UUID + " = ?",
-                new String[]{uuidString});
-    }
-
     private UserSettingsCursorWrapper queryUserSettings(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
                 ChangeExChDbSchema.UserSettingsTable.NAME,
@@ -81,8 +74,6 @@ public class UserSettingLab {
 
     private static ContentValues getContentValues(UserSetting userSetting) {
         ContentValues values = new ContentValues();
-        values.put(ChangeExChDbSchema.UserSettingsTable.Cols.UUID, userSetting.getId().toString());
-        values.put(USERNAME, userSetting.getUserName());
         values.put(TIMEFORMAT, userSetting.getTimeFormat());
         values.put(CURRENCYPREFERENCE, userSetting.getCurrencyPreference());
         values.put(COLORMODE, userSetting.getColorMode());
