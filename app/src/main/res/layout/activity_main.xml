@@ -14,19 +14,40 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <fragment
-            android:id="@+id/current_price_fragment"
-            android:name="edu.wtamu.cis.cidm4385saru.changeexchain.Fragments.CurrentPriceFragment"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="166dp"
-            android:layout_weight="1" />
+            android:layout_height="165dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <fragment
-            android:id="@+id/price_alarm_list_fragment"
-            android:name="edu.wtamu.cis.cidm4385saru.changeexchain.Fragments.PriceAlarmListFragment"
+            <fragment
+                android:id="@+id/current_price_fragment"
+                android:name="edu.wtamu.cis.cidm4385saru.changeexchain.Fragments.CurrentPriceFragment"
+                android:layout_width="match_parent"
+                android:layout_height="103dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="511dp"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <fragment
+                android:id="@+id/price_alarm_list_fragment"
+                android:name="edu.wtamu.cis.cidm4385saru.changeexchain.Fragments.PriceAlarmListFragment"
+                android:layout_width="match_parent"
+                android:layout_height="511dp"
+                android:layout_weight="1" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
