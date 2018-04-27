@@ -128,7 +128,7 @@ public class LoginActivity  extends AppCompatActivity implements View.OnClickLis
                 }else{
                     PriceAlarm pa = PriceAlarm.createDefault();
 
-                    mDB.child("PriceAlarm").child(uuid).child(pa.getId().toString()).setValue(pa);
+                    mDB.child("PriceAlarm").child(uuid).child("default").setValue(pa);
                 }
             }
 

@@ -110,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         FirebaseUser user = mAuth.getCurrentUser();
         mDB.child("UserSettings").child(user.getUid()).setValue(UserSetting.createDefault());
-        mDB.child("PriceAlarms").child(user.getUid()).setValue(PriceAlarm.class);
+        mDB.child("PriceAlarms").child("Default").setValue(PriceAlarm.createDefault());
     }
 
     @Override
