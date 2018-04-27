@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.PriceAlarm;
+import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.SharedPreferencesManager;
 import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.UserSetting;
 import edu.wtamu.cis.cidm4385saru.changeexchain.R;
 
@@ -107,7 +108,11 @@ public class LoginActivity  extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChild(uuid)){
-
+                    SharedPreferencesManager pm = new SharedPreferencesManager(getApplicationContext());
+                    pm.clearAllValues();
+                    pm.storeValue(SharedPreferencesManager.CURRENCY_PREFERENCE, dataSnapshot.child("currencyPreference").getValue().toString());
+                    pm.storeValue(SharedPreferencesManager.TIME_FORMAT, dataSnapshot.child("timeFormat").getValue().toString());
+                    pm.storeValue(SharedPreferencesManager.COLOR_MODE, dataSnapshot.child("colorMode").getValue().toString());
                 }else{
                     mDB.child("UserSettings").child(uuid).setValue(UserSetting.createDefault());
                 }
@@ -123,9 +128,7 @@ public class LoginActivity  extends AppCompatActivity implements View.OnClickLis
         userAlarms.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.hasChild(uuid)){
-
-                }else{
+                if(!dataSnapshot.hasChild(uuid)){
                     PriceAlarm pa = PriceAlarm.createDefault();
 
                     mDB.child("PriceAlarm").child(uuid).child("default").setValue(pa);
