@@ -108,11 +108,7 @@ public class LoginActivity  extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChild(uuid)){
-                    SharedPreferencesManager pm = new SharedPreferencesManager(getApplicationContext());
-                    pm.clearAllValues();
-                    pm.storeValue(SharedPreferencesManager.CURRENCY_PREFERENCE, dataSnapshot.child("currencyPreference").getValue().toString());
-                    pm.storeValue(SharedPreferencesManager.TIME_FORMAT, dataSnapshot.child("timeFormat").getValue().toString());
-                    pm.storeValue(SharedPreferencesManager.COLOR_MODE, dataSnapshot.child("colorMode").getValue().toString());
+                    SharedPreferencesManager.setUserSettingsPreferences(dataSnapshot, getApplicationContext());
                 }else{
                     mDB.child("UserSettings").child(uuid).setValue(UserSetting.createDefault());
                 }
