@@ -11,9 +11,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.PriceAlarm;
 import edu.wtamu.cis.cidm4385saru.changeexchain.Labs.PriceAlarmLab;
@@ -23,6 +34,9 @@ public class PriceAlarmListFragment extends Fragment {
 
     private RecyclerView mPriceAlarmRecyclerView;
     private PriceAlarmAdapter mAdapter;
+    private DatabaseReference mRef;
+    private FirebaseUser mUser;
+    private ArrayList<PriceAlarm> mPriceAlarms = new ArrayList<>();
 
     @Nullable
     @Override
@@ -36,16 +50,47 @@ public class PriceAlarmListFragment extends Fragment {
                 .findViewById(R.id.alarm_recycler_view);
         mPriceAlarmRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        mUser = auth.getCurrentUser();
+
+        if(mUser != null){
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+            mRef = ref.child("PriceAlarm").child(mUser.getUid());
+        }
+
+        getAlarms();
         updateUI();
 
         return view;
     }
 
-    private void updateUI(){
-        PriceAlarmLab priceAlarmLab = PriceAlarmLab.get(getActivity());
-        List<PriceAlarm> priceAlarms = priceAlarmLab.getAlarms();
+    private void getAlarms(){
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    PriceAlarm pA = new PriceAlarm(UUID.fromString(snapshot.getKey()));
+                    PriceAlarm temp = snapshot.getValue(PriceAlarm.class);
 
-        mAdapter = new PriceAlarmAdapter(priceAlarms);
+                    pA.setThreshold(temp.getThreshold());
+                    pA.setPrice(temp.getPrice());
+                    pA.setCurrencyCode(temp.getCurrencyCode());
+                    pA.setEnabled(temp.isEnabled());
+
+                    mAdapter.mPriceAlarms.add(pA);
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void updateUI(){
+        mAdapter = new PriceAlarmAdapter(mPriceAlarms);
         mPriceAlarmRecyclerView.setAdapter(mAdapter);
     }
 
@@ -54,21 +99,51 @@ public class PriceAlarmListFragment extends Fragment {
     * */
     private class PriceAlarmHolder extends RecyclerView.ViewHolder{
 
-        private TextView mAlarmAmount;
-        private TextView mThreshold;
+        private TextView mAlarmThreshold;
+        private TextView mAlarmPrice;
+        private TextView mCurrencyCode;
+        private Button mEnabledButton;
         private PriceAlarm mPriceAlarm;
 
         public PriceAlarmHolder(LayoutInflater inflater, ViewGroup parent){
             super(inflater.inflate(R.layout.list_price_alarm_item, parent, false));
 
-            mAlarmAmount = itemView.findViewById(R.id.alarm_amount);
-            mThreshold = itemView.findViewById(R.id.alarm_threshold);
+            mAlarmThreshold = itemView.findViewById(R.id.alarm_threshold);
+            mAlarmPrice = itemView.findViewById(R.id.alarm_price);
+            mCurrencyCode = itemView.findViewById(R.id.alarm_currency_code);
+            mEnabledButton = itemView.findViewById(R.id.enabled_button);
+
         }
 
-        public void bind (PriceAlarm priceAlarm){
+        public void bind (final PriceAlarm priceAlarm){
             mPriceAlarm = priceAlarm;
-            mAlarmAmount.setText(Integer.toString(mPriceAlarm.getPrice()));
-            mThreshold.setText(mPriceAlarm.getThreshold());
+
+            mAlarmThreshold.setText(mPriceAlarm.getThreshold());
+            mAlarmPrice.setText(mPriceAlarm.getPrice());
+            mCurrencyCode.setText(mPriceAlarm.getCurrencyCode());
+            if(mPriceAlarm.isEnabled()){
+                mEnabledButton.setText("Enabled");
+            }else{
+                mEnabledButton.setText("Disabled");
+            }
+
+            mEnabledButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mPriceAlarm.isEnabled()) {
+                        mEnabledButton.setText("Disabled");
+                        mPriceAlarm.setEnabled(false);
+                    } else {
+                        mEnabledButton.setText("Enabled");
+                        mPriceAlarm.setEnabled(true);
+                    }
+
+                    mRef.child(mPriceAlarm.getId().toString()).child("enabled").setValue(mPriceAlarm.isEnabled());
+                }
+
+            });
+
+
         }
     }
 

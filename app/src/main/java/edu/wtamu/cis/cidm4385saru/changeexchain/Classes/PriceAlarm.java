@@ -8,10 +8,8 @@ public class PriceAlarm {
     //TODO Change back to private
     private UUID mId;
     private String mCurrencyCode;
-    private int mPrice;
+    private String mPrice;
     private String mThreshold;
-
-
     private boolean mEnabled;
 
     public PriceAlarm() {
@@ -34,11 +32,11 @@ public class PriceAlarm {
         this.mCurrencyCode = mCurrencyCode;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return mPrice;
     }
 
-    public void setPrice(int mPrice) {
+    public void setPrice(String mPrice) {
         this.mPrice = mPrice;
     }
 
@@ -63,7 +61,7 @@ public class PriceAlarm {
         PriceAlarm pa = new PriceAlarm();
 
         pa.setCurrencyCode("local");
-        pa.setPrice(0);
+        pa.setPrice("$0.00");
         pa.setEnabled(false);
 
         return pa;
