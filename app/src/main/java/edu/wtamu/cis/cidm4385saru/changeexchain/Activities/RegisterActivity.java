@@ -66,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private void registerUser() {
         String email = exEmail.getText().toString().trim();
-        String password = exPassword.getText().toString().trim();
+        final String password = exPassword.getText().toString().trim();
 
         if (email.isEmpty()) {
             exEmail.setError("Email is required");
@@ -99,6 +99,27 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     public void onComplete(@NonNull Task<AuthResult> task){
                         progressBar.setVisibility(View.GONE);
                         if(task.isSuccessful()) {
+
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            final String uuid = user.getUid();
+                            mDB.child("UserSettings").child(uuid).setValue(UserSetting.createDefault());
+
+                            /*PriceAlarm pA = PriceAlarm.createDefault();
+                            mDB.child("PriceAlarms").child(pA.getId().toString()).setValue(pA);*/
+
+                            DatabaseReference ref = mDB.child("UserSettings").child(uuid);
+                            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    SharedPreferencesManager.setUserSettingsPreferences(dataSnapshot, getApplicationContext());
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
@@ -111,24 +132,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         }
                     }
                 });
-
-        FirebaseUser user = mAuth.getCurrentUser();
-        final String uuid = user.getUid();
-        mDB.child("UserSettings").child(uuid).setValue(UserSetting.createDefault());
-        mDB.child("PriceAlarms").child("Default").setValue(PriceAlarm.createDefault());
-
-        DatabaseReference ref = mDB.child("UserSettings").child(uuid);
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                SharedPreferencesManager.setUserSettingsPreferences(dataSnapshot, getApplicationContext());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     @Override

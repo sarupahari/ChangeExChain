@@ -8,46 +8,77 @@
     tools:context="edu.wtamu.cis.cidm4385saru.changeexchain.Activities.MainActivity">
 
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/add_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+            app:layout_constraintHorizontal_bias="0.512"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout"
+            app:layout_constraintVertical_bias="0.192"
+            app:srcCompat="@android:drawable/ic_input_add" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="165dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <fragment
-                android:id="@+id/current_price_fragment"
-                android:name="edu.wtamu.cis.cidm4385saru.changeexchain.Fragments.CurrentPriceFragment"
-                android:layout_width="match_parent"
-                android:layout_height="103dp"
-                android:layout_weight="1" />
-        </LinearLayout>
-
-        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <fragment
-                android:id="@+id/price_alarm_list_fragment"
-                android:name="edu.wtamu.cis.cidm4385saru.changeexchain.Fragments.PriceAlarmListFragment"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="511dp"
-                android:layout_weight="1" />
+                android:layout_height="165dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <fragment
+                    android:id="@+id/current_price_fragment"
+                    android:name="edu.wtamu.cis.cidm4385saru.changeexchain.Fragments.CurrentPriceFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="103dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="45dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <fragment
+                    android:id="@+id/price_alarm_list_fragment"
+                    android:name="edu.wtamu.cis.cidm4385saru.changeexchain.Fragments.PriceAlarmListFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="511dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>

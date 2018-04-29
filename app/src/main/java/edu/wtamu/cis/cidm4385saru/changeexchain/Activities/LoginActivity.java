@@ -90,6 +90,44 @@ public class LoginActivity  extends AppCompatActivity implements View.OnClickLis
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()){
+
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    final String uuid = user.getUid();
+
+                    DatabaseReference userSettings = mDB.child("UserSettings");
+                    userSettings.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.hasChild(uuid)){
+                                SharedPreferencesManager.setUserSettingsPreferences(dataSnapshot.child(uuid), getApplicationContext());
+                            }else{
+                                mDB.child("UserSettings").child(uuid).setValue(UserSetting.createDefault());
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    DatabaseReference userAlarms = mDB.child("PriceAlarms");
+                    userAlarms.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(!dataSnapshot.hasChild(uuid)){
+                                /*PriceAlarm pa = PriceAlarm.createDefault();
+
+                                mDB.child("PriceAlarm").child(uuid).child(pa.getId().toString()).setValue(pa);*/
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
@@ -97,43 +135,6 @@ public class LoginActivity  extends AppCompatActivity implements View.OnClickLis
                 }else{
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-
-        FirebaseUser user = mAuth.getCurrentUser();
-        final String uuid = user.getUid();
-
-        DatabaseReference userSettings = mDB.child("UserSettings");
-        userSettings.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.hasChild(uuid)){
-                    SharedPreferencesManager.setUserSettingsPreferences(dataSnapshot.child(uuid), getApplicationContext());
-                }else{
-                    mDB.child("UserSettings").child(uuid).setValue(UserSetting.createDefault());
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        DatabaseReference userAlarms = mDB.child("PriceAlarms");
-        userAlarms.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.hasChild(uuid)){
-                    PriceAlarm pa = PriceAlarm.createDefault();
-
-                    mDB.child("PriceAlarm").child(uuid).child("default").setValue(pa);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
