@@ -108,7 +108,7 @@ public class LoginActivity  extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChild(uuid)){
-                    SharedPreferencesManager.setUserSettingsPreferences(dataSnapshot, getApplicationContext());
+                    SharedPreferencesManager.setUserSettingsPreferences(dataSnapshot.child(uuid), getApplicationContext());
                 }else{
                     mDB.child("UserSettings").child(uuid).setValue(UserSetting.createDefault());
                 }
