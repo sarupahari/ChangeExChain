@@ -23,10 +23,10 @@
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-            app:layout_constraintHorizontal_bias="0.959"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintHorizontal_bias="0.512"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/linearLayout"
-            app:layout_constraintVertical_bias="0.205"
+            app:layout_constraintVertical_bias="0.192"
             app:srcCompat="@android:drawable/ic_input_add" />
 
         <LinearLayout

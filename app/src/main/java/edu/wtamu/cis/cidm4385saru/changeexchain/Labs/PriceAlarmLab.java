@@ -59,27 +59,6 @@ public class PriceAlarmLab {
         mRef.child(pA.getId().toString()).setValue(pA);
     }
 
-    public List<PriceAlarm> getAlarms() {
-        final List<PriceAlarm> priceAlarms = new ArrayList<>();
-
-        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    PriceAlarm priceAlarm = snapshot.getValue(PriceAlarm.class);
-                    priceAlarms.add(priceAlarm);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        return priceAlarms;
-    }
-
     public PriceAlarm getPriceAlarm(UUID id) {
 
         final PriceAlarm priceAlarm = new PriceAlarm(id);

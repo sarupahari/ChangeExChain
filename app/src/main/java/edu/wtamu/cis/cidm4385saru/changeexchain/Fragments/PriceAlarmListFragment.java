@@ -19,7 +19,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.PriceAlarm;
 import edu.wtamu.cis.cidm4385saru.changeexchain.Labs.PriceAlarmLab;
@@ -31,6 +33,7 @@ public class PriceAlarmListFragment extends Fragment {
     private PriceAlarmAdapter mAdapter;
     private DatabaseReference mRef;
     private FirebaseUser mUser;
+    private ArrayList<PriceAlarm> mPriceAlarms = new ArrayList<>();
 
     @Nullable
     @Override
@@ -52,16 +55,39 @@ public class PriceAlarmListFragment extends Fragment {
             mRef = ref.child("PriceAlarm").child(mUser.getUid());
         }
 
+        getAlarms();
         updateUI();
 
         return view;
     }
 
-    private void updateUI(){
-        PriceAlarmLab priceAlarmLab = PriceAlarmLab.get(getActivity());
-        List<PriceAlarm> priceAlarms = priceAlarmLab.getAlarms();
+    private void getAlarms(){
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    PriceAlarm pA = new PriceAlarm(UUID.fromString(snapshot.getKey()));
+                    PriceAlarm temp = snapshot.getValue(PriceAlarm.class);
 
-        mAdapter = new PriceAlarmAdapter(priceAlarms);
+                    pA.setThreshold(temp.getThreshold());
+                    pA.setPrice(temp.getPrice());
+                    pA.setCurrencyCode(temp.getCurrencyCode());
+                    pA.setEnabled(temp.isEnabled());
+
+                    mAdapter.mPriceAlarms.add(pA);
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void updateUI(){
+        mAdapter = new PriceAlarmAdapter(mPriceAlarms);
         mPriceAlarmRecyclerView.setAdapter(mAdapter);
     }
 
@@ -86,7 +112,7 @@ public class PriceAlarmListFragment extends Fragment {
 
         }
 
-        public void bind (PriceAlarm priceAlarm){
+        public void bind (final PriceAlarm priceAlarm){
             mPriceAlarm = priceAlarm;
 
             mAlarmThreshold.setText(mPriceAlarm.getThreshold());
@@ -101,15 +127,20 @@ public class PriceAlarmListFragment extends Fragment {
             mEnabledButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(mPriceAlarm.isEnabled()){
+                    if (mPriceAlarm.isEnabled()) {
                         mEnabledButton.setText("Disabled");
-                        mRef.child(mPriceAlarm.getId().toString()).child("enabled").setValue(false);
-                    }else{
+                        mPriceAlarm.setEnabled(false);
+                    } else {
                         mEnabledButton.setText("Enabled");
-                        mRef.child(mPriceAlarm.getId().toString()).child("enabled").setValue(true);
+                        mPriceAlarm.setEnabled(true);
                     }
+
+                    mRef.child(mPriceAlarm.getId().toString()).child("enabled").setValue(mPriceAlarm.isEnabled());
                 }
+
             });
+
+
         }
     }
 

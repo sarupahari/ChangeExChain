@@ -21,7 +21,7 @@ public class PriceAlarmCursorWrapper extends CursorWrapper {
 
         PriceAlarm priceAlarm = new PriceAlarm(UUID.fromString(uuidString));
         priceAlarm.setCurrencyCode(currencyCode);
-        priceAlarm.setPrice(price);
+        //priceAlarm.setPrice(price);
         priceAlarm.setThreshold(threshold);
 
         return priceAlarm;
