@@ -21,10 +21,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.PriceAlarm;
+import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.SharedPreferencesManager;
 import edu.wtamu.cis.cidm4385saru.changeexchain.Classes.UserSetting;
 import edu.wtamu.cis.cidm4385saru.changeexchain.R;
 
@@ -109,8 +113,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 });
 
         FirebaseUser user = mAuth.getCurrentUser();
-        mDB.child("UserSettings").child(user.getUid()).setValue(UserSetting.createDefault());
+        final String uuid = user.getUid();
+        mDB.child("UserSettings").child(uuid).setValue(UserSetting.createDefault());
         mDB.child("PriceAlarms").child("Default").setValue(PriceAlarm.createDefault());
+
+        DatabaseReference ref = mDB.child("UserSettings").child(uuid);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                SharedPreferencesManager.setUserSettingsPreferences(dataSnapshot, getApplicationContext());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
