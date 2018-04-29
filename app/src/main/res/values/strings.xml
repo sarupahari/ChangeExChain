@@ -12,7 +12,8 @@
     <string name="name">Name</string>
     <string name="register">Register</string>
     <string name="coindesk_link"><a href="https://www.coindesk.com/price/">Powered by CoinDesk</a></string>
-    <string name="currency_symbol_placeholder">$</string>
-    <string name="price_placeholder">8000.00</string>
+    <string name="price_placeholder">$8000.00</string>
     <string name="currency_code_placeholder">USD</string>
+    <string name="alarm_threshold_placeholder">Above</string>
+    <string name="alarm_enabled_placeholder">Enabled</string>
 </resources>

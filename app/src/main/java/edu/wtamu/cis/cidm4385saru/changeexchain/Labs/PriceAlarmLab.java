@@ -5,6 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +32,8 @@ import static edu.wtamu.cis.cidm4385saru.changeexchain.database.ChangeExChDbSche
 public class PriceAlarmLab {
     private static PriceAlarmLab sPriceAlarmLab;
     private Context mContext;
-    private SQLiteDatabase mDatabase;
+    private FirebaseUser mUser;
+    private DatabaseReference mRef;
 
     public static PriceAlarmLab get(Context context) {
         if (sPriceAlarmLab == null) {
@@ -36,67 +45,69 @@ public class PriceAlarmLab {
 
     private PriceAlarmLab(Context context) {
         mContext = context.getApplicationContext();
-        mDatabase = new ChangeExChainBaseHelper(mContext)
-                .getWritableDatabase();
 
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser mUser = auth.getCurrentUser();
+
+        if(mUser != null){
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+            mRef = ref.child("PriceAlarm").child(mUser.getUid());
+        }
     }
 
     public void addPriceAlarm(PriceAlarm pA) {
-        ContentValues values = getContentValues(pA);
-        mDatabase.insert(ChangeExChDbSchema.PriceAlarmTable.NAME, null, values);
+        mRef.child(pA.getId().toString()).setValue(pA);
     }
 
     public List<PriceAlarm> getAlarms() {
-        List<PriceAlarm> priceAlarms = new ArrayList<>();
+        final List<PriceAlarm> priceAlarms = new ArrayList<>();
 
-        /*PriceAlarmCursorWrapper cursor = queryPriceAlarm(null, null);
-        try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                priceAlarms.add(cursor.getAlarm());
-                cursor.moveToNext();
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    PriceAlarm priceAlarm = snapshot.getValue(PriceAlarm.class);
+                    priceAlarms.add(priceAlarm);
+                }
             }
-        } finally {
-            cursor.close();
-        }*/
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         return priceAlarms;
     }
 
     public PriceAlarm getPriceAlarm(UUID id) {
-        PriceAlarmCursorWrapper cursor = queryPriceAlarm(
-                PriceAlarmTable.Cols.UUID + " = ?",
-                new String[]{id.toString()}
-        );
-        try {
-            if (cursor.getCount() == 0) {
-                return null;
+
+        final PriceAlarm priceAlarm = new PriceAlarm(id);
+
+        mRef.child(id.toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                PriceAlarm temp = dataSnapshot.getValue(PriceAlarm.class);
+
+                priceAlarm.setCurrencyCode(temp.getCurrencyCode());
+                priceAlarm.setPrice(temp.getPrice());
+                priceAlarm.setThreshold(temp.getThreshold());
+                priceAlarm.setEnabled(temp.isEnabled());
             }
-            cursor.moveToFirst();
-            return cursor.getAlarm();
-        } finally {
-            cursor.close();
-        }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        return priceAlarm;
     }
 
     public void updateAlarm(PriceAlarm priceAlarm) {
         String uuidString = priceAlarm.getId().toString();
-        ContentValues values = getContentValues(priceAlarm);
-        mDatabase.update(PriceAlarmTable.NAME, values,
-                PriceAlarmTable.Cols.UUID + " = ?",
-                new String[]{uuidString});
-    }
 
-    private PriceAlarmCursorWrapper queryPriceAlarm(String whereClause, String[] whereArgs) {
-        Cursor cursor = mDatabase.query(
-                PriceAlarmTable.NAME,
-                null, // Columns - null selects all columns
-                whereClause,
-                whereArgs,
-                null, // groupBy
-                null, // having
-                null  // orderBy
-        );
-        return new PriceAlarmCursorWrapper(cursor);
+        mRef.child(uuidString).setValue(priceAlarm);
     }
 
     private static ContentValues getContentValues(PriceAlarm priceAlarm) {
