@@ -70,6 +70,8 @@ public class CurrentPriceFragment extends Fragment {
     private class fetchPriceTask extends AsyncTask<Void, Void, String>{
         @Override
         protected String doInBackground(Void...params){
+            CoinDeskApi test = new CoinDeskApi();
+            test.fetchSupportedCurrencies();
             return new CoinDeskApi().fetchCurrentPrice(mCurrentCurrencyCode);
         }
 

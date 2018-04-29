@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,13 +17,16 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Currency;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
 public class CoinDeskApi{
 
     private static String mCurrentPriceBaseUrl = "https://api.coindesk.com/v1/bpi/currentprice/";
+    private static String mSupportedCurrenciesUrl = "https://api.coindesk.com/v1/bpi/supported-currencies.json";
 
     private static String TAG = "CoinDeskApi";
 
@@ -43,6 +47,28 @@ public class CoinDeskApi{
         }
 
         return currentPrice;
+    }
+
+    public ArrayList<String> fetchSupportedCurrencies(){
+        ArrayList<String> supportedCurrencies = new ArrayList<String>();
+
+        try{
+            String jsonString = getUrlString(mSupportedCurrenciesUrl);
+            JSONArray jsonArray = new JSONArray(jsonString);
+
+            for(int ii = 0; ii <= jsonArray.length() - 1; ii++) {
+                JSONObject objects = jsonArray.getJSONObject(ii);
+                String currency = objects.get("currency").toString();
+                supportedCurrencies.add(currency);
+            }
+
+        }catch(IOException e){
+            Log.e(TAG, "Failed to fetch supported currencies");
+        }catch(JSONException je){
+            Log.e(TAG, "Failed to parse JSON");
+        }
+
+        return supportedCurrencies;
     }
 
     public byte[] getUrlBytes(String urlSpec) throws IOException{
@@ -85,4 +111,6 @@ public class CoinDeskApi{
         return result;
 
     }
+
+
 }
