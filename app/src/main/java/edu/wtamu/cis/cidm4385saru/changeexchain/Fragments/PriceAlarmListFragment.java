@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -22,12 +23,6 @@ public class PriceAlarmListFragment extends Fragment {
 
     private RecyclerView mPriceAlarmRecyclerView;
     private PriceAlarmAdapter mAdapter;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
 
     @Nullable
     @Override
@@ -105,12 +100,4 @@ public class PriceAlarmListFragment extends Fragment {
             return mPriceAlarms.size();
         }
     }
-
-        @Override
-        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-            super.onCreateOptionsMenu(menu, inflater);
-            inflater.inflate(R.menu.fragment_price_alarm, menu);
-        }
-
-
 }
