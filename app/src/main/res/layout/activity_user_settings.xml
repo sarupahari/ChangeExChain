@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Settings"
+        android:padding="10dp"
+        android:textSize="20dp"/>
+
+    <Switch
+        style="?android:listSeparatorTextViewStyle"
+        android:id="@+id/exchain_timeformat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/time_format"
+        android:padding="10dp"
+        android:textSize="20dp"/>
+
+    <Spinner
+        android:id="@+id/exchain_currency_preference"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text= "@string/currency_pref"
+        style="@android:style/Widget.Spinner"
+        android:padding="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/alarm_theme"
+        android:text="@string/theme"
+        android:textSize="20dp"
+        android:padding="5dp"/>
+    <RadioGroup
+        android:id="@+id/radioGroup_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/default_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:textSize="20dp"
+            android:text="@string/theme1"
+            android:padding="5dp"/>
+
+        <RadioButton
+            android:id="@+id/dark_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/theme2"
+            android:textSize="20dp"
+            android:padding="5dp"/>
+    </RadioGroup>
+    <Button
+        android:id="@+id/button_add_price_alarm"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/add_alarm"
+        android:textSize="18dp"/>
+</LinearLayout>

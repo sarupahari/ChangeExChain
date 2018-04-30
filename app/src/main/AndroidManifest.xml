@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".Activities.MainActivity" />
         <activity android:name=".Activities.RegisterActivity"/>
+        <activity android:name=".Activities.UserSettingsActivity"/>
         <!--<activity android:name=".Activities.NewPriceAlarmActivity"></activity>-->
         <activity android:name=".Activities.LoginActivity"></activity>
     </application>
