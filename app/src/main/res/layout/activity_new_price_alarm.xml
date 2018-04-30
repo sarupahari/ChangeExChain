@@ -14,8 +14,8 @@
         android:padding="15dp"
         android:textSize="20dp"/>
 
-    <Spinner
-        android:id="@+id/spinner"
+    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+        android:id="@+id/new_alarm_currency"
         android:layout_width="fill_parent"
 
         android:layout_height="wrap_content"
