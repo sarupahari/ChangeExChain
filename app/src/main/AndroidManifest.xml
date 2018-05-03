@@ -11,19 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.MainActivity">
+        <activity android:name=".Activities.LoginActivity">
         <!--<activity android:name=".Activities.LoginActivity">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
-
             </intent-filter>
         </activity>
-        <!--<activity android:name=".Activities.MainActivity" />-->
+        <activity android:name=".Activities.MainActivity"/>
         <activity android:name=".Activities.RegisterActivity"/>
-       <activity android:name=".Activities.NewPriceAlarmActivity"></activity>
-        <activity android:name=".Activities.LoginActivity"></activity>
+        <activity android:name=".Activities.NewPriceAlarmActivity"/>
+        <activity android:name=".Activities.UserSettingsActivity"></activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
