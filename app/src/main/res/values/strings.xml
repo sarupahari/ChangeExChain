@@ -23,4 +23,6 @@
     <string name="save_settings">Save Settings</string>
     <string name="add_alarm">Save Alarm</string>
     <string name="alarm_enabled">Enabled</string>
+    <string name="channel_name">ChangeExChain_Channel</string>
+    <string name="channel_description">ChangeExChain channel for notifications</string>
 </resources>
