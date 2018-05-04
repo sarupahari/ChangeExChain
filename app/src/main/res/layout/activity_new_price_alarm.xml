@@ -70,12 +70,13 @@
 
     <Button
         android:id="@+id/button_save_price_alarm"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:background="@color/buttonColor"
         android:text="@string/save_settings"
-        android:textSize="18dp"/>
+        android:textSize="18dp" />
 
 </LinearLayout>

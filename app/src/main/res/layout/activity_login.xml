@@ -67,11 +67,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="7dp"
-                android:textSize="25dp"
-                android:background="@color/colorBackground"
+                android:background="@color/buttonColor"
                 android:text="@string/login"
                 android:textAllCaps="false"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/colorAccent"
+                android:textSize="25dp" />
 
             <TextView
                 android:id="@+id/exTextViewRegister"
