@@ -59,4 +59,23 @@
             android:text="@string/below_threshold" />
     </RadioGroup>
 
+    <Switch
+        style="?android:listSeparatorTextViewStyle"
+        android:id="@+id/exchain_alarm_enabled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/alarm_enabled"
+        android:padding="20dp"
+        android:textSize="20dp"/>
+
+    <Button
+        android:id="@+id/button_save_price_alarm"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/save_settings"
+        android:textSize="18dp"/>
+
 </LinearLayout>

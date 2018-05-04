@@ -2,7 +2,7 @@
     <string name="app_name">ChangeExChain</string>
     <string name="chain">Chain</string>
     <string name="time_format">Time Format</string>
-    <string name="currency">Currency</string>
+    <string name="currency_pref">Currency Preference</string>
     <string name="theme">Theme</string>
     <string name="theme1">Default</string>
     <string name="theme2">Dark</string>
@@ -14,10 +14,13 @@
     <string name="coindesk_link"><a href="https://www.coindesk.com/price/">Powered by CoinDesk</a></string>
     <string name="price_placeholder">$8000.00</string>
     <string name="currency_code_placeholder">USD</string>
-    <string name="spinner_title">Currency Code</string>
+    <string name="spinner_title">Supported Currencies</string>
     <string name="radio_threshold">Price Threshold</string>
     <string name="above_threshold">Above</string>
     <string name="below_threshold">Below</string>
     <string name="alarm_threshold_placeholder">Above</string>
     <string name="alarm_enabled_placeholder">Enabled</string>
+    <string name="save_settings">Save Settings</string>
+    <string name="add_alarm">Save Alarm</string>
+    <string name="alarm_enabled">Enabled</string>
 </resources>

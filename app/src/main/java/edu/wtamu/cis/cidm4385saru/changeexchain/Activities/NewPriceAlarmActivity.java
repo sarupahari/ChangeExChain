@@ -26,7 +26,7 @@ public class NewPriceAlarmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_price_alarm);
         mCurrencyDropDown = findViewById(R.id.new_alarm_currency);
         mCurrencyDropDown.setTitle("Supported Currencies");
-        mCurrencyDropDown.setPositiveButton("OK");
+        mCurrencyDropDown.setPositiveButton("Select");
         new fetchSupportedCurrenciesTask().execute();
     }
 

@@ -1,6 +1,7 @@
 package edu.wtamu.cis.cidm4385saru.changeexchain.Fragments;
 
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -58,6 +59,7 @@ public class CurrentPriceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         mMainView = inflater.inflate(R.layout.current_price_fragment_layout, container, false);
+        mMainView.setBackgroundColor(Color.parseColor("#cc99cc"));
         mCurrentCurrencyCodeView = mMainView.findViewById(R.id.current_currency_code);
         mCurrentPriceView = mMainView.findViewById(R.id.current_price);
         mCurrentPrice = "";

@@ -30,9 +30,9 @@ public class PriceAlarmFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_pricealarm_settings, container, false);
+        View v = inflater.inflate(R.layout.activity_user_settings, container, false);
 
-        TimeFormatSwitch = (Switch) v.findViewById(R.id.exchain_timeformat);
+        TimeFormatSwitch = (Switch) v.findViewById(R.id.time_format);
 
         return v;
     }
