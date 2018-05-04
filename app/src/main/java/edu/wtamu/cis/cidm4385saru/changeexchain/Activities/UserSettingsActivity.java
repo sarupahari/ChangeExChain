@@ -1,8 +1,12 @@
 package edu.wtamu.cis.cidm4385saru.changeexchain.Activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -84,5 +88,25 @@ public class UserSettingsActivity extends AppCompatActivity{
             currencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             mCurrencyPreference.setAdapter(currencyAdapter);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_action_back, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_back_button:
+                Log.i("MainActivity", Integer.toString(item.getItemId()));
+                Intent back = new Intent(UserSettingsActivity.this, MainActivity.class);
+                startActivity(back);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return false;
     }
 }
