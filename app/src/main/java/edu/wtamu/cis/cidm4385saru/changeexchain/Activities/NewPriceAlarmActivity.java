@@ -20,6 +20,7 @@ public class NewPriceAlarmActivity extends AppCompatActivity {
     private List<String> mSupportedCurrencies;
     private SearchableSpinner mCurrencyDropDown;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

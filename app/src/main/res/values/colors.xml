@@ -4,4 +4,16 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#362F77</color>
     <color name="colorBackground">#9D90F3</color>
+
+    <color name="Primary_default">#B67FFF</color>
+    <color name="Background_default">#ECCEFF</color>
+    <color name="Navbar_default">#CF6BEA</color>
+    <color name="FragmentBackground_default">#DF7FFF</color>
+    <color name="ButtonColor_default">#C97FFF</color>
+
+    <color name="Primary_dark">#5B3F7F</color>
+    <color name="Background_dark">#76677F</color>
+    <color name="Navbar_dark">#703A7F</color>
+    <color name="FragmentBackground_dark">#884D9B</color>
+    <color name="ButtonColor_dark">#362244</color>
 </resources>
