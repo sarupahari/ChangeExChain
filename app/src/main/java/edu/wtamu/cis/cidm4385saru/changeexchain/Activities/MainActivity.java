@@ -36,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onActivityReenter(int resultCode, Intent data) {
+        super.onActivityReenter(resultCode, data);
+
+        
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_action, menu);
         return super.onCreateOptionsMenu(menu);
