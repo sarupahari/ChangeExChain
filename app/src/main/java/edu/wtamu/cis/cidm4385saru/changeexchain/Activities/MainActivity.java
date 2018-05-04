@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         switch (item.getItemId()) {
-            case R.menu.toolbar_action:
+            case R.id.action_setting:
                 Log.i("MainActivity", Integer.toString(item.getItemId()));
                 Intent settings = new Intent(MainActivity.this, UserSettingsActivity.class);
                 startActivity(settings);
