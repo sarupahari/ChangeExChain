@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import java.lang.reflect.Array;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
@@ -52,7 +53,7 @@ public class NewPriceAlarmActivity extends AppCompatActivity {
         new fetchSupportedCurrenciesTask().execute();
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mRef = FirebaseDatabase.getInstance().getReference().child("PriceAlarms").child(mUser.getUid());
+        mRef = FirebaseDatabase.getInstance().getReference().child("PriceAlarm").child(mUser.getUid());
 
         mSaveButton = findViewById(R.id.button_save_price_alarm);
         mSaveButton.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +72,10 @@ public class NewPriceAlarmActivity extends AppCompatActivity {
 
                 //Price
                 Currency currency = Currency.getInstance(currCode);
-                String priceString = currency.getSymbol() + mAlarmPrice.getText().toString();
+                DecimalFormat formatter = new DecimalFormat("#,###.00");
+                double temp = Double.parseDouble(mAlarmPrice.getText().toString());
+                String price = formatter.format(temp);
+                String priceString = currency.getSymbol() + price;
                 priceAlarm.setPrice(priceString);
 
                 //Threshold
@@ -81,6 +85,9 @@ public class NewPriceAlarmActivity extends AppCompatActivity {
                 mRef.child(priceAlarm.getId().toString()).setValue(priceAlarm);
 
                 finish();
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
     }

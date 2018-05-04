@@ -26,16 +26,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), NewPriceAlarmActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    public void onActivityReenter(int resultCode, Intent data) {
-        super.onActivityReenter(resultCode, data);
-
-        
     }
 
     @Override

@@ -58,7 +58,7 @@ public class UserSettingsActivity extends AppCompatActivity{
         String[] timeFormatArray = new String[] {
                 "12", "24"
         };
-        ArrayAdapter<String> timeFormatAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_item, timeFormatArray);
+        ArrayAdapter<String> timeFormatAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, timeFormatArray);
         timeFormatAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mTimeFormat.setAdapter(timeFormatAdapter);
 
@@ -70,6 +70,10 @@ public class UserSettingsActivity extends AppCompatActivity{
                 mRef.child("colorMode").setValue(themeButton.getText());
                 mRef.child("currencyPreference").setValue(mCurrencyPreference.getSelectedItem().toString());
                 mRef.child("timeFormat").setValue(mTimeFormat.getSelectedItem().toString());
+
+                finish();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -82,7 +86,6 @@ public class UserSettingsActivity extends AppCompatActivity{
 
         @Override
         protected void onPostExecute(ArrayList<String> supportedCurrencies){
-            supportedCurrencies.add(0, "local");
             mSupportedCurrencies = supportedCurrencies;
             ArrayAdapter<String> currencyAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_item, mSupportedCurrencies);
             currencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
