@@ -14,11 +14,11 @@
         android:layout_weight="1">
 
         <ImageView
-            android:layout_width="85dp"
-            android:layout_height="100dp"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
-            <!--android:background="@drawable/app_logo"-->
+            android:background="@drawable/change_exchain_logo" />
 
 
     </RelativeLayout>
@@ -47,8 +47,8 @@
                 android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:paddingBottom="15dp"
-                android:textSize="25dp"
-                android:textColorHint="@color/colorAccent" />
+                android:textColorHint="@color/colorAccent"
+                android:textSize="25dp" />
 
             <EditText
                 android:id="@+id/exPassword"
@@ -58,8 +58,8 @@
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:paddingBottom="15dp"
-                android:textSize="25dp"
-                android:textColorHint="@color/colorAccent" />
+                android:textColorHint="@color/colorAccent"
+                android:textSize="25dp" />
 
             <Button
                 android:id="@+id/exButtonLogin"
@@ -78,22 +78,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textSize="20dp"
                 android:text="Don't have account? Register"
                 android:textAlignment="center"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/colorAccent"
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/exCreditCoinDesk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:textSize="18dp"
                 android:text="@string/coindesk_link"
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColorLink="@color/colorPrimaryDark"/>
+                android:textColorLink="@color/colorPrimaryDark"
+                android:textSize="18dp" />
 
         </LinearLayout>
 
