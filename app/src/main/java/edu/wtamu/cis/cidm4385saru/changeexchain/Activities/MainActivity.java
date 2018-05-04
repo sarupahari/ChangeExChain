@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentContainer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +15,7 @@ import android.widget.Toolbar;
 
 import edu.wtamu.cis.cidm4385saru.changeexchain.R;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     private ImageButton mAddAlarm;
 
@@ -35,20 +36,28 @@ public class MainActivity extends AppCompatActivity{
         });
 
     }
+
     @Override
-    public boolean onCreateOptionsMenu (Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_action, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch(item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+
+        switch (item.getItemId()) {
             case R.menu.toolbar_action:
-                Intent settings = new Intent(MainActivity.this,UserSettingsActivity.class);
+                Log.i("MainActivity", Integer.toString(item.getItemId()));
+                Intent settings = new Intent(MainActivity.this, UserSettingsActivity.class);
+                startActivity(settings);
                 break;
             default:
                 return super.onOptionsItemSelected(item);
         }
+        return false;
     }
+
 }
